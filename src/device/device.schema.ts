@@ -1,24 +1,37 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { User } from '../user/user.schema';
 export type DeviceDocument = Device & Document;
+import { ApiProperty, ApiExtraModels } from '@nestjs/swagger';
 
-@Schema()
+@Schema({ timestamps: true, versionKey: false })
 export class Device {
-  @Prop({ required: true })
-  _id: Types.ObjectId;
+	@ApiProperty({ type: String })
+	@Prop({ required: true })
+	_id: Types.ObjectId;
 
-  @Prop({ required: true, trim: true })
-  deviceName: string;
+	@ApiProperty()
+	@Prop({ required: true, trim: true })
+	deviceName: string;
 
-  @Prop({ required: true, trim: true, unique: true })
-  deviceID: string;
+	@ApiProperty({ type: String, uniqueItems: true })
+	@Prop({ required: true, trim: true, unique: true })
+	deviceID: string;
 
-  @Prop({ required: true, trim: true, unique: true })
-  deviceType: string;
+	@ApiProperty()
+	@Prop({ required: true, trim: true })
+	deviceType: string;
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }] })
-  user: User;
+	@ApiProperty()
+	@Prop({ required: true, trim: true })
+	deviceModel: string;
+
+	@Prop()
+	@ApiProperty({ type: [String] })
+	deviceInfo: string[];
+
+	@ApiProperty({ type: String })
+	@Prop({ type: [{ type: Types.ObjectId, ref: 'User' }] })
+	user: Types.ObjectId;
 }
 
 export const DeviceSchema = SchemaFactory.createForClass(Device);
