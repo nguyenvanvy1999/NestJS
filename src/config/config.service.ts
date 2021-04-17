@@ -4,12 +4,6 @@ import { Injectable } from '@nestjs/common';
 export class AppConfigService {
 	constructor(private configService: ConfigService) {}
 
-	get isAuthEnabled(): boolean {
-		return this.configService.get('AUTH_ENABLED') === 'true';
-	}
-	isEnv(env: string): boolean {
-		return this.configService.get<string>('NODE_ENV') === env;
-	}
 	get isDebug(): boolean {
 		return this.configService.get<boolean>('DEBUG'); // because before, debug and test set to boolean
 	}

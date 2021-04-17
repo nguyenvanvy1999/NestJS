@@ -11,7 +11,6 @@ import { UserTool } from './tools/user.tool';
 
 @Module({
 	imports: [
-		AppConfigModule,
 		MongooseModule.forFeatureAsync([
 			{
 				name: User.name,
@@ -40,6 +39,7 @@ import { UserTool } from './tools/user.tool';
 				inject: [ConfigService],
 			},
 		]),
+		AppConfigModule,
 	],
 	controllers: [UserController],
 	providers: [UserService, AppConfigService, UserTool],

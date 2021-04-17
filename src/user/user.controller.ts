@@ -61,6 +61,7 @@ export class UserController {
 		const email = 'string';
 		const user = await this.userService.getByEmail(email);
 		const isPassword = user.comparePassword('string');
-		return { name: user.getFullName(), isPassword };
+		const test = this.userService.test();
+		return { name: user.getFullName(), isPassword, test };
 	}
 }
