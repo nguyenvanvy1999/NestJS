@@ -5,8 +5,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { mongoOption } from './config/mongo.config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { AppConfigService } from './config/config.service';
 import { AppConfigModule } from './config/config.module';
+import { DeviceModule } from './device/device.module';
 @Module({
 	imports: [
 		MongooseModule.forRootAsync({
@@ -22,6 +22,7 @@ import { AppConfigModule } from './config/config.module';
 		}),
 		AppConfigModule,
 		UserModule,
+		DeviceModule,
 	],
 })
 export class AppModule {}
