@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppConfigService {
 	constructor(private configService: ConfigService) {}
-	
+
 	get isAuthEnabled(): boolean {
 		return this.configService.get('AUTH_ENABLED') === 'true';
 	}

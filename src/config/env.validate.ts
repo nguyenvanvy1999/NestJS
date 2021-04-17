@@ -23,7 +23,7 @@ const envValidate: joi.ObjectSchema = joi
 		SMTP_PASSWORD: joi.string(),
 		SENDGRID_API_KEY: joi.string(),
 		// bcrypt salt
-		SALT: joi.number().min(4).max(15).default(5),
+		SALT: joi.number().min(4).max(15).default(10),
 	})
 	.or('SMTP_USER', 'SENDGRID_API_KEY')
 	.and('SMTP_USER', 'SMTP_PASSWORD')

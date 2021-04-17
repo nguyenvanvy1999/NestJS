@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 export type DeviceDocument = Device & Document;
 import { ApiProperty, ApiExtraModels } from '@nestjs/swagger';
+import { User } from 'src/user/user.schema';
 
 @Schema({ timestamps: true, versionKey: false })
 export class Device {
@@ -32,6 +33,14 @@ export class Device {
 	@ApiProperty({ type: String })
 	@Prop({ type: [{ type: Types.ObjectId, ref: 'User' }] })
 	user: Types.ObjectId;
+
+	getUserInfo: () => User;
+
+	createdAt: Date;
+
+	updatedAt: Date;
+
+	deletedAt: Date;
 }
 
 export const DeviceSchema = SchemaFactory.createForClass(Device);
