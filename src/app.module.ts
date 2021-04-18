@@ -10,6 +10,7 @@ import { DeviceModule } from './device/device.module';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
 import { WinstonModule } from 'nest-winston';
+import { AppLogger } from './config/tools/logger.config';
 @Module({
 	imports: [
 		MongooseModule.forRootAsync({

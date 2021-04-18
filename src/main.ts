@@ -6,22 +6,13 @@ import * as path from 'path';
 import * as favicon from 'serve-favicon';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as morgan from 'morgan';
-import { WinstonModule, utilities as nestWinstonModuleUtilities } from 'nest-winston';
-import * as winston from 'winston';
+import { AppLogger, stream } from './config/tools/logger.config';
 
 async function bootstrap() {
-	const app = await NestFactory.create(AppModule, {
-		logger: WinstonModule.createLogger({
-			transports: [
-				new winston.transports.Console({
-					format: winston.format.combine(winston.format.timestamp(), nestWinstonModuleUtilities.format.nestLike()),
-				}),
-			],
-		}),
-	});
+	const app = await NestFactory.create(AppModule, { logger: AppLogger });
 	app.enableCors();
 	app.use(morgan('dev'));
-	app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
+	app.use(morgan(':method :url :status :res[content-length] - :response-time ms', { stream: stream }));
 	app.use(helmet());
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
