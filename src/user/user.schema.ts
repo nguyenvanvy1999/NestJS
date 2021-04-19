@@ -22,6 +22,10 @@ export class User extends Document {
 	@Prop({ required: true, unique: true, lowercase: true, trim: true })
 	email: string;
 
+	@ApiProperty({ minLength: 8 })
+	@Prop({ required: true, min: 8 })
+	password: string;
+
 	@ApiProperty()
 	@Prop({ trim: true })
 	firstName: string;
@@ -29,10 +33,6 @@ export class User extends Document {
 	@ApiProperty()
 	@Prop({ trim: true })
 	lastName: string;
-
-	@ApiProperty({ minLength: 8 })
-	@Prop({ required: true, min: 8 })
-	password: string;
 
 	@ApiProperty({ enum: Gender, default: Gender.Undisclosed })
 	@Prop({
@@ -45,10 +45,6 @@ export class User extends Document {
 	@ApiProperty({ default: false })
 	@Prop({ required: true, default: false })
 	isActive: boolean;
-
-	@ApiProperty({ type: [String] })
-	@Prop({ type: [{ type: Types.ObjectId, ref: 'Device' }] })
-	devices: Types.ObjectId[];
 
 	@ApiProperty()
 	@Prop({ type: [String] })

@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as favicon from 'serve-favicon';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as morgan from 'morgan';
-import { AppLogger, stream } from './config/tools/logger.config';
+import { AppLogger, stream } from './logger/logger.service';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule, { logger: AppLogger });

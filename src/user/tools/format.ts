@@ -11,8 +11,8 @@ export class UserTool {
 		const results = [];
 		users.forEach((user) => {
 			const _ = user.toJSON();
-			const { isActive, password, createdAt, updatedAt, deletedAt, ...test } = _;
-			results.push(test);
+			const { isActive, password, createdAt, updatedAt, deletedAt, ...tmp } = _;
+			results.push(tmp);
 		});
 		return results;
 	}

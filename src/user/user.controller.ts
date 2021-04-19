@@ -9,12 +9,12 @@ import {
 	ApiOkResponse,
 	getSchemaPath,
 } from '@nestjs/swagger';
-import { NotFoundException, BadRequestException } from '@nestjs/common';
+import { NotFoundException, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { UserResponse, UsersResponse, Error } from './interfaces/user.response.dto';
 import { SignIn, SignUp } from './interfaces/user.request.dto';
 import { UserService } from './user.service';
 import { AppConfigService } from '../config/config.service';
-import { UserTool } from './tools/user.tool';
+import { UserTool } from './tools/format';
 
 @ApiTags('user')
 @Controller('user')
@@ -43,8 +43,9 @@ export class UserController {
 	@Post('signin')
 	async signIn(@Body() data: SignIn): Promise<string> {
 		const user = await this.userService.getByEmail(data.email);
-		if (!user) throw new BadRequestException('Email wrong !');
-		if (user.comparePassword(data.password)) return 'Sign Successfully !';
+		if (!user) throw new UnauthorizedException('Email wrong !');
+		if (!user.comparePassword(data.password)) throw new UnauthorizedException('Password wrong !');
+		return 'Sign Successfully !';
 	}
 
 	@Get('email')
@@ -62,6 +63,7 @@ export class UserController {
 		const user = await this.userService.getByEmail(email);
 		const isPassword = user.comparePassword('string');
 		const test = this.userService.test();
-		return { name: user.getFullName(), isPassword, test };
+		const config = this.configService.salt;
+		return { name: user.getFullName(), isPassword, test, config };
 	}
 }

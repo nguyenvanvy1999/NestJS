@@ -1,13 +1,7 @@
 import { OmitType, ApiProperty } from '@nestjs/swagger';
 import { User } from '../user.schema';
 
-export class UserResponse extends OmitType(User, [
-	'isActive',
-	'password',
-	'createAt',
-	'updateAt',
-	'devices',
-] as undefined) {}
+export class UserResponse extends OmitType(User, ['isActive', 'password', 'createAt', 'updateAt'] as undefined) {}
 
 export class UsersResponse {
 	@ApiProperty({ type: [UserResponse] })
