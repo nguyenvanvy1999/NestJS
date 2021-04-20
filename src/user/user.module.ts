@@ -3,12 +3,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { AppConfigService } from '../config/config.service';
-import { AppConfigModule } from '../config/config.module';
 import { UserTool } from './tools/format';
 import { userProvider } from './user.provider';
+import { BcryptTool } from 'src/tools/bcrypt.tool';
+import { JwtStrategy } from 'src/auth/strategies/jwt.stragety';
+
 @Module({
-	imports: [MongooseModule.forFeatureAsync([userProvider]), AppConfigModule],
+	imports: [MongooseModule.forFeatureAsync([userProvider])],
 	controllers: [UserController],
-	providers: [UserService, AppConfigService, UserTool],
+	providers: [UserService, AppConfigService, UserTool, BcryptTool, JwtStrategy],
 })
 export class UserModule {}

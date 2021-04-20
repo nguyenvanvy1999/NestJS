@@ -28,6 +28,8 @@ export const configProvider = {
 			SENDGRID_API_KEY: joi.string(),
 			// bcrypt salt
 			SALT: joi.number().min(4).max(15).default(10),
+			// jwt config
+			SECRET: joi.string().min(5).required(),
 		})
 		.or('SMTP_USER', 'SENDGRID_API_KEY')
 		.and('SMTP_USER', 'SMTP_PASSWORD')

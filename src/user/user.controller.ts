@@ -9,20 +9,24 @@ import {
 	ApiOkResponse,
 	getSchemaPath,
 } from '@nestjs/swagger';
-import { NotFoundException, BadRequestException, UnauthorizedException } from '@nestjs/common';
+import { NotFoundException, BadRequestException, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { UserResponse, UsersResponse, Error } from './interfaces/user.response.dto';
 import { SignIn, SignUp } from './interfaces/user.request.dto';
 import { UserService } from './user.service';
 import { AppConfigService } from '../config/config.service';
 import { UserTool } from './tools/format';
+import { BcryptTool } from 'src/tools/bcrypt.tool';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { UserDocument } from './user.schema';
 
 @ApiTags('user')
 @Controller('user')
 export class UserController {
 	constructor(
 		private readonly userService: UserService,
-		private readonly configService: AppConfigService,
-		private readonly userTool: UserTool
+		private readonly config: AppConfigService,
+		private readonly userTool: UserTool,
+		private readonly bcrypt: BcryptTool
 	) {}
 
 	@Post()
@@ -58,12 +62,14 @@ export class UserController {
 	}
 
 	@Get('test')
-	async test() {
+	// @UseGuards(JwtAuthGuard)
+	async test(): Promise<UserDocument> {
 		const email = 'string';
 		const user = await this.userService.getByEmail(email);
 		const isPassword = user.comparePassword('string');
 		const test = this.userService.test();
-		const config = this.configService.salt;
-		return { name: user.getFullName(), isPassword, test, config };
+		const config = this.config.salt;
+		// return { name: user.getFullName(), isPassword, test, config };
+		return user;
 	}
 }

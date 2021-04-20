@@ -1,10 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
-import * as bcrypt from 'bcrypt';
-import { AppConfigService } from '../config/config.service';
-import { ConfigService } from '@nestjs/config';
-const configService = new AppConfigService(new ConfigService());
+import { Base } from 'src/base.schema';
 
 export type UserDocument = User & Document;
 enum Gender {
@@ -13,11 +10,7 @@ enum Gender {
 	Undisclosed = 'Undisclosed',
 }
 @Schema({ timestamps: true, versionKey: false })
-export class User extends Document {
-	@ApiProperty({ type: String })
-	@Prop({ type: Types.ObjectId, required: true })
-	_id: Types.ObjectId;
-
+export class User extends Base {
 	@ApiProperty({ type: String, uniqueItems: true })
 	@Prop({ required: true, unique: true, lowercase: true, trim: true })
 	email: string;
@@ -49,12 +42,6 @@ export class User extends Document {
 	@ApiProperty()
 	@Prop({ type: [String] })
 	info: string[];
-
-	createdAt: Date;
-
-	updatedAt: Date;
-
-	deletedAt: Date;
 
 	comparePassword: (password: string) => boolean;
 
