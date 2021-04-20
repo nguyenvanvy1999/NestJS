@@ -12,5 +12,6 @@ import { JwtStrategy } from 'src/auth/strategies/jwt.stragety';
 	imports: [MongooseModule.forFeatureAsync([userProvider])],
 	controllers: [UserController],
 	providers: [UserService, AppConfigService, UserTool, BcryptTool, JwtStrategy],
+	exports: [UserService],
 })
 export class UserModule {}

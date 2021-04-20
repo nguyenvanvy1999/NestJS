@@ -7,7 +7,6 @@ import {
 	ApiInternalServerErrorResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
-	getSchemaPath,
 } from '@nestjs/swagger';
 import { NotFoundException, BadRequestException, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { UsersResponse } from './dtos/users-return.dto';
@@ -18,7 +17,6 @@ import { UserService } from './user.service';
 import { AppConfigService } from '../config/config.service';
 import { UserTool } from './tools/format';
 import { BcryptTool } from 'src/tools/bcrypt.tool';
-import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { UserDocument } from './user.schema';
 
 @ApiTags('user')

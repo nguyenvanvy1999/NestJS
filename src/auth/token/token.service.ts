@@ -2,11 +2,6 @@ import { Injectable, InternalServerErrorException, NotFoundException, Unauthoriz
 import { Token, TokenDocument } from './token.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { randomBytes } from 'crypto';
-import * as moment from 'moment';
-import { Types } from 'mongoose';
-import uuid = require('uuid');
-import { AppLogger } from '../../logger/logger.service';
 import { ConfigService } from '@nestjs/config';
 import { JwtPayload } from '../dtos/payload.dto';
 import { JwtService } from '@nestjs/jwt';
