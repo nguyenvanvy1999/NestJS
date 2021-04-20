@@ -1,4 +1,4 @@
-import { Document, Types } from 'mongoose';
+import { Types } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import {
 	IsEmail,
@@ -12,12 +12,7 @@ import {
 	IsDateString,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-
-enum Gender {
-	Male = 'Male',
-	Female = 'Female',
-	Undisclosed = 'Undisclosed',
-}
+import { Gender } from '../dtos/gender.enum';
 
 export class UserInterface {
 	@ApiProperty({ type: String })

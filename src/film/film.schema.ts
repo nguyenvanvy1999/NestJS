@@ -1,9 +1,10 @@
-import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 import { Base } from 'src/share/base.schema';
 import { Types } from 'mongoose';
 
 export type FilmDocument = Film & Document;
 
+@Schema({ timestamps: true, versionKey: false })
 export class Film extends Base {
 	@Prop({ type: String, required: true })
 	name: string;

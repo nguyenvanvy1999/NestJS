@@ -43,7 +43,7 @@ export class UserController {
 	@ApiResponse({ type: UsersResponse })
 	async findAll(): Promise<UsersResponse> {
 		const users = await this.userService.getAll();
-		return { users: this.userTool.removeForMany(users), count: users.length };
+		return this.userTool.removeForMany(users);
 	}
 
 	@Post('signin')

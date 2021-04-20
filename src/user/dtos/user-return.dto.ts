@@ -1,5 +1,4 @@
-import { OmitType, ApiProperty } from '@nestjs/swagger';
-import { User } from '../user.schema';
+import { OmitType } from '@nestjs/swagger';
 import { UserInterface } from '../interfaces/user.interface';
 
 export class UserResponse extends OmitType(UserInterface, [
