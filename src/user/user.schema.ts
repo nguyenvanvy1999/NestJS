@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
-import { Base } from 'src/base.schema';
+import { Base } from 'src/share/base.schema';
 
 export type UserDocument = User & Document;
 enum Gender {

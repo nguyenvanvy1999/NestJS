@@ -10,8 +10,10 @@ import {
 	getSchemaPath,
 } from '@nestjs/swagger';
 import { NotFoundException, BadRequestException, UnauthorizedException, UseGuards } from '@nestjs/common';
-import { UserResponse, UsersResponse, Error } from './interfaces/user.response.dto';
-import { SignIn, SignUp } from './interfaces/user.request.dto';
+import { UsersResponse } from './dtos/users-return.dto';
+import { UserResponse } from './dtos/user-return.dto';
+import { SignIn } from './dtos/signin.dto';
+import { SignUp } from './dtos/signup.dto';
 import { UserService } from './user.service';
 import { AppConfigService } from '../config/config.service';
 import { UserTool } from './tools/format';

@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
-import { Base } from 'src/base.schema';
+import { Base } from 'src/share/base.schema';
 
 export type AdminDocument = Admin & Document;
 @Schema({ timestamps: true, versionKey: false })

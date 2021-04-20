@@ -1,5 +1,5 @@
 import { Prop, SchemaFactory } from '@nestjs/mongoose';
-import { Base } from 'src/base.schema';
+import { Base } from 'src/share/base.schema';
 import { Types } from 'mongoose';
 
 export type FilmDocument = Film & Document;
