@@ -7,9 +7,11 @@ import { UserTool } from './tools/format';
 import { userProvider } from './user.provider';
 import { BcryptTool } from 'src/tools/bcrypt.tool';
 import { JwtStrategy } from 'src/auth/strategies/jwt.stragety';
+import { AuthService } from 'src/auth/auth.service';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-	imports: [MongooseModule.forFeatureAsync([userProvider])],
+	imports: [MongooseModule.forFeatureAsync([userProvider]), AuthModule],
 	controllers: [UserController],
 	providers: [UserService, AppConfigService, UserTool, BcryptTool, JwtStrategy],
 	exports: [UserService],

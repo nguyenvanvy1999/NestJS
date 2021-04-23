@@ -1,12 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as helmet from 'helmet';
-import * as express from 'express';
-import * as path from 'path';
-import * as favicon from 'serve-favicon';
+import helmet from 'helmet';
+import express from 'express';
+import path from 'path';
+import favicon from 'serve-favicon';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import * as morgan from 'morgan';
-import { AppLogger, stream } from './logger/logger.service';
+import morgan from 'morgan';
+import { AppLogger, stream } from './tools/logger.tool';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule, { logger: AppLogger });

@@ -7,6 +7,7 @@ import {
 	ApiInternalServerErrorResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
+	ApiOperation,
 } from '@nestjs/swagger';
 import { NotFoundException, BadRequestException, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { UsersResponse } from './dtos/users-return.dto';
@@ -18,6 +19,8 @@ import { AppConfigService } from '../config/config.service';
 import { UserTool } from './tools/format';
 import { BcryptTool } from 'src/tools/bcrypt.tool';
 import { UserDocument } from './user.schema';
+import { AuthService } from 'src/auth/auth.service';
+import { SignInReturn } from './dtos/signin-response';
 
 @ApiTags('user')
 @Controller('user')
@@ -26,12 +29,14 @@ export class UserController {
 		private readonly userService: UserService,
 		private readonly config: AppConfigService,
 		private readonly userTool: UserTool,
-		private readonly bcrypt: BcryptTool
+		private readonly bcrypt: BcryptTool,
+		private readonly authService: AuthService
 	) {}
 
 	@Post()
 	@ApiCreatedResponse({ type: UserResponse })
 	@ApiInternalServerErrorResponse({ description: 'Server error !' })
+	@ApiOperation({ description: 'create new user !' })
 	async create(@Body() user: SignUp): Promise<UserResponse> {
 		const newUser = await this.userService.newUser(user);
 		return this.userTool.removeForOne(newUser);
@@ -45,12 +50,7 @@ export class UserController {
 	}
 
 	@Post('signin')
-	async signIn(@Body() data: SignIn): Promise<string> {
-		const user = await this.userService.getByEmail(data.email);
-		if (!user) throw new UnauthorizedException('Email wrong !');
-		if (!user.comparePassword(data.password)) throw new UnauthorizedException('Password wrong !');
-		return 'Sign Successfully !';
-	}
+	async signIn(@Body() data: SignIn) {}
 
 	@Get('email')
 	@ApiOkResponse({ type: UserResponse })
