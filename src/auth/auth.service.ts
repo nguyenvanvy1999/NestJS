@@ -1,7 +1,7 @@
-import { BadRequestException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/user/user.schema';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { RefreshToken } from './token.schema';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
@@ -34,6 +34,7 @@ export class AuthService {
 	}
 	async createRefreshToken(req: Request, userId: string): Promise<string> {
 		const refreshToken = new this.refreshTokenModel({
+			_id: Types.ObjectId(),
 			userId,
 			refreshToken: v4(),
 			ip: this.getIp(req),

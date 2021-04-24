@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Base } from 'src/share/base.schema';
 import { Gender } from './dtos/gender.enum';
+import { Role } from './dtos/role.enum';
 
 export type UserDocument = User & Document;
 @Schema({ timestamps: true, versionKey: false })
@@ -31,9 +32,8 @@ export class User extends Base {
 	@Prop({ type: [String] })
 	info: string[];
 
-	comparePassword: (password: string) => boolean;
-
-	getFullName: () => string;
+	@Prop({ type: [String], enum: Object.values(Role), default: Role.User })
+	roles: Role[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

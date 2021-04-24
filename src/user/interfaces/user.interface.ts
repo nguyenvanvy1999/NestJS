@@ -13,6 +13,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { Gender } from '../dtos/gender.enum';
+import { Role } from '../dtos/role.enum';
 
 export class UserInterface {
 	@ApiProperty({ type: String })
@@ -61,4 +62,8 @@ export class UserInterface {
 	@IsArray()
 	@Type(() => String)
 	info: string[];
+
+	@ApiProperty({ type: [Role], enum: Role, default: Role.User })
+	@IsEnum(Role, { each: true })
+	roles: Role[];
 }

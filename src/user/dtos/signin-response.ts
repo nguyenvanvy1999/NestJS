@@ -1,4 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
 export class SignInReturn {
-	accessToken: string;
-	refreshToken?: string;
+	@ApiProperty() accessToken: string;
+	@ApiProperty({ required: false }) refreshToken?: string;
 }
