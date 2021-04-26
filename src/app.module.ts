@@ -7,6 +7,8 @@ import { MongoModule } from './mongodb/mongo.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/guards/jwt.guard';
 
 @Module({
 	imports: [
@@ -19,6 +21,6 @@ import { AuthModule } from './auth/auth.module';
 		UserModule,
 	],
 	controllers: [AppController],
-	providers: [AppService, Logger],
+	providers: [AppService, Logger, { provide: APP_GUARD, useClass: JwtAuthGuard }],
 })
 export class AppModule {}

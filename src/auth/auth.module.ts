@@ -9,6 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.stragety';
 import { UserTool } from '../user/tools/format';
+import { UserService } from 'src/user/user.service';
 
 @Module({
 	imports: [
@@ -29,7 +30,7 @@ import { UserTool } from '../user/tools/format';
 			inject: [ConfigService],
 		}),
 	],
-	providers: [AuthService, JwtStrategy, UserTool],
+	providers: [AuthService, JwtStrategy, UserTool, UserService],
 	exports: [AuthService],
 })
 export class AuthModule {}

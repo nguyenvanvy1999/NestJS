@@ -37,7 +37,7 @@ export class Film extends Base {
 	})
 	views: number;
 
-	@Prop({ type: Types.ObjectId, ref: 'Admin', required: true })
+	@Prop({ type: Types.ObjectId, ref: 'User', required: true })
 	addBy: Types.ObjectId;
 }
 

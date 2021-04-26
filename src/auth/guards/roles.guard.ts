@@ -9,7 +9,7 @@ export class RolesGuard extends AuthGuard('jwt') {
 		super();
 	}
 
-	handleRequest(err: Error, user, info: Error, context: ExecutionContext) {
+	handleRequest(err: Error, user: any, info: Error, context: ExecutionContext): any {
 		const roles = this.reflector.get<Role[]>('roles', context.getHandler());
 		if (!roles) {
 			return true;

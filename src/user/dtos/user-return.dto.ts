@@ -1,10 +1,11 @@
-import { OmitType } from '@nestjs/swagger';
-import { UserInterface } from '../interfaces/user.interface';
+import { Types } from 'mongoose';
+import { Gender } from './gender.enum';
 
-export class UserResponse extends OmitType(UserInterface, [
-	'isActive',
-	'password',
-	'createdAt',
-	'updatedAt',
-	'deletedAt',
-]) {}
+export class UserResponse {
+	_id: Types.ObjectId;
+	email: string;
+	firstName: string;
+	lastName: string;
+	gender: Gender;
+	info?: string[];
+}

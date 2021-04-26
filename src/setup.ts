@@ -27,6 +27,7 @@ export class StartApp {
 	private async initializeSwagger() {
 		const server = await this.app;
 		const config = new DocumentBuilder()
+			.addBearerAuth()
 			.setTitle('Mesthing API')
 			.setDescription('IOT API ver 1')
 			.setVersion('1.0')

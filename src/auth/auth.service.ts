@@ -9,9 +9,9 @@ import { v4 } from 'uuid';
 import { Request } from 'express';
 import { getClientIp } from 'request-ip';
 import { JwtPayload } from './dtos/payload.dto';
-import crypto from 'crypto-js';
 import { UserResponse } from 'src/user/dtos/user-return.dto';
 import { UserTool } from 'src/user/tools/format';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
@@ -30,7 +30,7 @@ export class AuthService {
 				expiresIn: this.config.get<string>('JWT_EXPIRATION'),
 			}
 		);
-		return this.encrypt(token);
+		return token;
 	}
 	async createRefreshToken(req: Request, userId: string): Promise<string> {
 		const refreshToken = new this.refreshTokenModel({
@@ -59,20 +59,6 @@ export class AuthService {
 		return this.userTool.removeForOne(user);
 	}
 
-	async verifyJwt(jwt: string) {
-		try {
-			const decoded = this.decrypt(jwt);
-			await this.jwtService.verifyAsync(decoded, { secret: this.config.get<string>('SECRET') });
-		} catch (error) {
-			throw new UnauthorizedException(error);
-		}
-	}
-	private encrypt(text: string): string {
-		return crypto.AES.encrypt(text, this.config.get<string>('SECRET')).toString();
-	}
-	private decrypt(text: string): string {
-		return crypto.AES.decrypt(text, this.config.get<string>('SECRET')).toString();
-	}
 	private getIp(req: Request): string {
 		return getClientIp(req);
 	}

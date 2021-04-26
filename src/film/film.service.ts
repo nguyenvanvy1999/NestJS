@@ -6,14 +6,30 @@ import * as mongoose from 'mongoose';
 import { AppConfigService } from 'src/config/config.service';
 
 @Injectable()
-export class UserService {
+export class FilmService {
 	constructor(
 		@InjectModel(Film.name) private readonly filmModel: Model<FilmDocument>,
 		private readonly config: AppConfigService
 	) {}
 
-	async test() {
-		this.filmModel.findOne({ createAt: 'test' });
-		this.filmModel.findOne({ _id: 'test' });
+	async getById(_id: string): Promise<Film> {
+		return await this.filmModel.findById(_id);
+	}
+
+	async getByName(name: string): Promise<Film[]> {
+		return this.filmModel.find({ name: { $regex: name, $options: 'i' } });
+	}
+
+	async getAll(sort?: string, limit?: number, skip?: number) {
+		return this.filmModel.aggregate([
+			{ $match: {} },
+			{ $sort: { _id: -1 } },
+			{
+				$facet: {
+					metadata: [{ $count: 'total' }],
+					data: [{ $skip: skip }, { $limit: limit }, { $project: {} }],
+				},
+			},
+		]);
 	}
 }
